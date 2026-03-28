@@ -1,0 +1,50 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+
+import AspectBlogHero from "@/components/sections/aspect-blog-header";
+import AspectFeaturedPost from "@/components/sections/aspect-featured-post";
+import AspectPostGrid from "@/components/sections/aspect-post-grid";
+import AspectSeparator from "@/components/sections/aspect-separator";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+type BlogEntry = CollectionEntry<"blog">;
+
+const allPosts: BlogEntry[] = (await getCollection("blog")).sort(
+  (a, b) => b.data.published.valueOf() - a.data.published.valueOf(),
+);
+
+const featured: BlogEntry | undefined = allPosts
+  .filter((p) => p.data.featured)
+  .sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf())[0];
+
+const gridPosts: BlogEntry[] = featured
+  ? allPosts.filter((p) => p.id !== featured.id)
+  : allPosts;
+
+const featTagline = featured?.data.tagline ?? "";
+const featHeader = featured?.data.title ?? "";
+const featDesc = featured?.data.intro ?? "";
+const featLink = featured ? `/blog/${featured.id}` : "#";
+const featImage = featured?.data.coverImage ?? "/images/blog/placeholder.webp";
+---
+
+<DefaultLayout title="Blog" description="Latest posts">
+  <AspectBlogHero />
+
+  {
+    featured && (
+      <AspectFeaturedPost
+        tagline={featTagline}
+        header={featHeader}
+        description={featDesc}
+        link={featLink}
+        side="L"
+        image={featImage}
+      />
+    )
+  }
+
+  <AspectSeparator />
+
+  <AspectPostGrid posts={gridPosts} />
+</DefaultLayout>

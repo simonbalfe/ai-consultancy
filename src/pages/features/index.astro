@@ -1,0 +1,14 @@
+---
+import AspectFeatures from "@/components/sections/aspect-features";
+import AspectFeaturesHero from "@/components/sections/aspect-features-hero";
+import AspectSeparator from "@/components/sections/aspect-separator";
+import AspectTestimonials from "@/components/sections/aspect-testimonials";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+---
+
+<DefaultLayout title="Features">
+  <AspectFeaturesHero client:load />
+  <AspectFeatures />
+  <AspectTestimonials />
+  <AspectSeparator />
+</DefaultLayout>

@@ -1,0 +1,13 @@
+{
+  "name": "HermesOps",
+  "short_name": "HermesOps",
+  "icons": [
+    {
+      "src": "/favicon/favicon.ico",
+      "type": "image/x-icon"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

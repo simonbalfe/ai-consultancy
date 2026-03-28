@@ -1,0 +1,31 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import Quiz from "@/components/sections/quiz";
+---
+
+<DefaultLayout title="Automation Quiz | HermesOps" description="Take a 60-second quiz and get a free automation audit tailored to your business.">
+
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <img src="/images/layout/hermesops-icon.svg" alt="HermesOps" class="h-8 w-8" />
+        <span class="text-xl font-bold tracking-tight text-foreground">HermesOps</span>
+      </a>
+    </div>
+  </nav>
+
+  <section class="pt-32 pb-24 px-6">
+    <div class="max-w-xl mx-auto text-center mb-12">
+      <p class="text-accent text-sm font-medium tracking-wide uppercase mb-3">60-second quiz</p>
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+        Find out how much time AI could save your team.
+      </h1>
+      <p class="text-muted-foreground">
+        Answer a few quick questions. We will send you a free automation audit.
+      </p>
+    </div>
+
+    <Quiz client:load />
+  </section>
+
+</DefaultLayout>

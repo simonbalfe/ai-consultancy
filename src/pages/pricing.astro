@@ -1,0 +1,15 @@
+---
+import AspectPricing from "@/components/sections/aspect-pricing";
+import AspectPricingTable from "@/components/sections/aspect-pricing-table";
+import AspectSeparator from "@/components/sections/aspect-separator";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+---
+
+<DefaultLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <AspectPricing client:load />
+  <AspectSeparator />
+  <AspectPricingTable client:load />
+  <AspectSeparator />
+</DefaultLayout>

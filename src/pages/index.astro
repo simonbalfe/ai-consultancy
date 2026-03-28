@@ -1,0 +1,440 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
+---
+
+<DefaultLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+
+  <!-- NAV -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <img src="/images/layout/hermesops-icon.svg" alt="HermesOps" class="h-8 w-8 brightness-0 invert" />
+        <span class="text-xl font-bold tracking-tight text-foreground">HermesOps</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
+        <a href="#services" class="hover:text-foreground transition-colors">Services</a>
+        <a href="#process" class="hover:text-foreground transition-colors">Process</a>
+        <a href="#results" class="hover:text-foreground transition-colors">Results</a>
+        <a href="#faq" class="hover:text-foreground transition-colors">FAQ</a>
+      </div>
+      <a
+        href={CALENDLY_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="bg-accent text-accent-foreground px-5 py-2 rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
+      >
+        Book a call
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="pt-40 pb-24 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
+        AI systems that<br/>
+        <span class="italic font-normal text-muted-foreground">work while you sleep.</span>
+      </h1>
+      <p class="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
+        We build custom AI that automates your operations, saves your team hours every week, and scales with your business.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href={CALENDLY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-accent text-accent-foreground px-8 py-3.5 rounded-full text-base font-medium hover:opacity-90 transition-opacity"
+        >
+          Book your free consultation
+        </a>
+        <a
+          href="#services"
+          class="text-muted-foreground hover:text-foreground transition-colors text-base"
+        >
+          See what we build &darr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <p class="text-accent text-sm font-medium tracking-wide uppercase mb-4">What we build</p>
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-6">
+        Custom AI systems.<br/>
+        <span class="text-muted-foreground">Not templates.</span>
+      </h2>
+      <p class="text-muted-foreground text-lg max-w-2xl mb-16">
+        Every business is different. We diagnose your workflows, find the bottlenecks, and build systems tailored to how your team actually works.
+      </p>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-card border border-border rounded-2xl p-8">
+          <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">AI Assistants & Chatbots</h3>
+          <p class="text-muted-foreground leading-relaxed">
+            Intelligent conversational systems that handle customer queries, qualify leads, and book meetings automatically.
+          </p>
+        </div>
+
+        <div class="bg-card border border-border rounded-2xl p-8">
+          <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Workflow Automation</h3>
+          <p class="text-muted-foreground leading-relaxed">
+            End-to-end automation of repetitive processes. CRM updates, data entry, reporting, outreach, and follow-ups on autopilot.
+          </p>
+        </div>
+
+        <div class="bg-card border border-border rounded-2xl p-8">
+          <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Data & Intelligence</h3>
+          <p class="text-muted-foreground leading-relaxed">
+            AI-powered analytics, lead scoring, candidate matching, and document processing that turns raw data into decisions.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEFORE / AFTER -->
+  <section class="py-24 px-6 bg-card">
+    <div class="max-w-6xl mx-auto">
+      <p class="text-accent text-sm font-medium tracking-wide uppercase mb-4">Before & After</p>
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">
+        Where the hours go.
+      </h2>
+      <p class="text-muted-foreground text-lg max-w-2xl mb-12">
+        These are the workflows we automate first. The numbers are per person, per week.
+      </p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left">
+          <thead>
+            <tr class="border-b border-border text-sm text-muted-foreground">
+              <th class="py-4 pr-8 font-medium">Task</th>
+              <th class="py-4 pr-8 font-medium text-red-400">Before</th>
+              <th class="py-4 pr-8 font-medium text-emerald-400">After</th>
+              <th class="py-4 font-medium text-accent">Time saved</th>
+            </tr>
+          </thead>
+          <tbody class="text-base">
+            <tr class="border-b border-border">
+              <td class="py-4 pr-8">CRM updates after meetings</td>
+              <td class="py-4 pr-8 text-red-400">4h 00m</td>
+              <td class="py-4 pr-8 text-emerald-400">0h 45m</td>
+              <td class="py-4 text-accent font-medium">3h 15m</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-8">Pre-meeting research & briefs</td>
+              <td class="py-4 pr-8 text-red-400">2h 30m</td>
+              <td class="py-4 pr-8 text-emerald-400">0h 20m</td>
+              <td class="py-4 text-accent font-medium">2h 10m</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-8">Lead enrichment & scoring</td>
+              <td class="py-4 pr-8 text-red-400">2h 00m</td>
+              <td class="py-4 pr-8 text-emerald-400">0h 15m</td>
+              <td class="py-4 text-accent font-medium">1h 45m</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-8">Outreach & follow-ups</td>
+              <td class="py-4 pr-8 text-red-400">3h 00m</td>
+              <td class="py-4 pr-8 text-emerald-400">0h 20m</td>
+              <td class="py-4 text-accent font-medium">2h 40m</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-8">Content creation & publishing</td>
+              <td class="py-4 pr-8 text-red-400">3h 30m</td>
+              <td class="py-4 pr-8 text-emerald-400">0h 30m</td>
+              <td class="py-4 text-accent font-medium">3h 00m</td>
+            </tr>
+            <tr>
+              <td class="py-4 pr-8">Data entry & reporting</td>
+              <td class="py-4 pr-8 text-red-400">2h 30m</td>
+              <td class="py-4 pr-8 text-emerald-400">0h 20m</td>
+              <td class="py-4 text-accent font-medium">2h 10m</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-muted-foreground text-sm mt-8 italic">
+        That is 15+ hours back per person, per week. Multiply by your team size.
+      </p>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <p class="text-accent text-sm font-medium tracking-wide uppercase mb-4">How it works</p>
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-16">
+        From call to deployed.<br/>
+        <span class="text-muted-foreground">In weeks, not months.</span>
+      </h2>
+
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <div class="w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center text-sm font-bold mb-5">1</div>
+          <h3 class="text-lg font-semibold mb-2">Discovery</h3>
+          <p class="text-muted-foreground leading-relaxed">
+            30-minute call. We map where your time goes and find the highest-impact bottlenecks.
+          </p>
+        </div>
+        <div>
+          <div class="w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center text-sm font-bold mb-5">2</div>
+          <h3 class="text-lg font-semibold mb-2">Design</h3>
+          <p class="text-muted-foreground leading-relaxed">
+            We scope the system, define the integrations, and agree on exactly what gets built. No code until you approve.
+          </p>
+        </div>
+        <div>
+          <div class="w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center text-sm font-bold mb-5">3</div>
+          <h3 class="text-lg font-semibold mb-2">Build</h3>
+          <p class="text-muted-foreground leading-relaxed">
+            We build, test, and iterate. You see progress weekly. First system live in 4 to 6 weeks.
+          </p>
+        </div>
+        <div>
+          <div class="w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center text-sm font-bold mb-5">4</div>
+          <h3 class="text-lg font-semibold mb-2">Deploy & Support</h3>
+          <p class="text-muted-foreground leading-relaxed">
+            Deployed into your stack. Monitored, maintained, and improved as your operations evolve.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results" class="py-24 px-6 bg-card">
+    <div class="max-w-6xl mx-auto">
+      <p class="text-accent text-sm font-medium tracking-wide uppercase mb-4">Results</p>
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-16">
+        Real systems.<br/>
+        <span class="text-muted-foreground">Real hours recovered.</span>
+      </h2>
+
+      <div class="grid md:grid-cols-3 gap-6 mb-16">
+        <div class="bg-background border border-border rounded-2xl p-8">
+          <div class="text-4xl font-bold text-accent mb-2">15+</div>
+          <div class="text-muted-foreground">hours saved per person, per week</div>
+        </div>
+        <div class="bg-background border border-border rounded-2xl p-8">
+          <div class="text-4xl font-bold text-accent mb-2">4-6</div>
+          <div class="text-muted-foreground">weeks from call to live system</div>
+        </div>
+        <div class="bg-background border border-border rounded-2xl p-8">
+          <div class="text-4xl font-bold text-accent mb-2">100%</div>
+          <div class="text-muted-foreground">custom built for your workflows</div>
+        </div>
+      </div>
+
+      <!-- Case study cards -->
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-background border border-border rounded-2xl p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">CS</div>
+            <div>
+              <div class="font-semibold">Logistics Company</div>
+              <div class="text-sm text-muted-foreground">Air Cargo & Freight</div>
+            </div>
+          </div>
+          <p class="text-muted-foreground mb-4">
+            Replaced an 8-step manual booking form with an AI system that gathers information conversationally, fetches live pricing, and completes bookings automatically.
+          </p>
+          <div class="text-accent font-medium text-sm">8-step form replaced with instant AI booking</div>
+        </div>
+
+        <div class="bg-background border border-border rounded-2xl p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">CS</div>
+            <div>
+              <div class="font-semibold">Recruiting Firm</div>
+              <div class="text-sm text-muted-foreground">Executive Search</div>
+            </div>
+          </div>
+          <p class="text-muted-foreground mb-4">
+            Built a targeted outreach system that contacted 259 event speakers automatically, handling connection requests, messaging, and follow-ups.
+          </p>
+          <div class="text-accent font-medium text-sm">85.4% reply rate across 259 contacts</div>
+        </div>
+
+        <div class="bg-background border border-border rounded-2xl p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">CS</div>
+            <div>
+              <div class="font-semibold">Marketing Agency</div>
+              <div class="text-sm text-muted-foreground">Lead Generation</div>
+            </div>
+          </div>
+          <p class="text-muted-foreground mb-4">
+            Built an AI-driven lead generation system that identifies, contacts, and follows up with prospects automatically across multiple channels.
+          </p>
+          <div class="text-accent font-medium text-sm">20+ hours/week of manual outreach eliminated</div>
+        </div>
+
+        <div class="bg-background border border-border rounded-2xl p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">CS</div>
+            <div>
+              <div class="font-semibold">Staffing Company</div>
+              <div class="text-sm text-muted-foreground">Candidate Matching</div>
+            </div>
+          </div>
+          <p class="text-muted-foreground mb-4">
+            AI-powered candidate matching system that automatically screens and scores prospects, cutting manual screening time in half.
+          </p>
+          <div class="text-accent font-medium text-sm">Screening time reduced by 50%</div>
+        </div>
+
+        <div class="bg-background border border-border rounded-2xl p-8 md:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">CS</div>
+            <div>
+              <div class="font-semibold">Service Business</div>
+              <div class="text-sm text-muted-foreground">AI Voice Agent</div>
+            </div>
+          </div>
+          <p class="text-muted-foreground mb-4">
+            Built an AI voice agent that handles all inbound calls, qualifying leads and capturing enquiries automatically. Converted a &pound;1,200 lead while the owner was on holiday.
+          </p>
+          <div class="text-accent font-medium text-sm">&pound;1,200 lead captured and converted with zero manual effort</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-24 px-6">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-12">
+        Questions
+      </h2>
+
+      <div class="divide-y divide-border">
+        <details class="group py-6">
+          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-medium">
+            How does it start?
+            <svg class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </summary>
+          <p class="mt-4 text-muted-foreground leading-relaxed">
+            Discovery call. We map where your time is going, find the biggest bottlenecks, and scope the systems with highest impact. No code until we have a clear plan.
+          </p>
+        </details>
+
+        <details class="group py-6">
+          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-medium">
+            How fast do I see results?
+            <svg class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </summary>
+          <p class="mt-4 text-muted-foreground leading-relaxed">
+            First system live in 4 to 6 weeks. Discovery takes 1 to 2 weeks. The time savings start from day one of deployment and compound from there.
+          </p>
+        </details>
+
+        <details class="group py-6">
+          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-medium">
+            Who is this for?
+            <svg class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </summary>
+          <p class="mt-4 text-muted-foreground leading-relaxed">
+            Founders, directors, and operators who know AI works and want it built properly. You would rather pay for excellent execution than cheap hours.
+          </p>
+        </details>
+
+        <details class="group py-6">
+          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-medium">
+            Is this just another automation tool?
+            <svg class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </summary>
+          <p class="mt-4 text-muted-foreground leading-relaxed">
+            No. We do not sell software. We are an execution partner. We diagnose, design, build, and deploy custom systems tailored to your operations. The result feels like it was always part of your company.
+          </p>
+        </details>
+
+        <details class="group py-6">
+          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-medium">
+            What happens after deployment?
+            <svg class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </summary>
+          <p class="mt-4 text-muted-foreground leading-relaxed">
+            We own it. Monitored, maintained, and improved. As your operations evolve, the systems adapt. The longer they run, the more time they save.
+          </p>
+        </details>
+
+        <details class="group py-6">
+          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-medium">
+            How is my data handled?
+            <svg class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </summary>
+          <p class="mt-4 text-muted-foreground leading-relaxed">
+            Encrypted in transit and at rest. Your data is never used to train AI models. Zero data retention from providers.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 px-6 bg-card">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-6">
+        Every day you wait is<br/>another day of lost time.
+      </h2>
+      <p class="text-lg text-muted-foreground mb-10">
+        30-minute call. We will map where your time is going and show you exactly what we would build to get it back.
+      </p>
+      <a
+        href={CALENDLY_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-block bg-accent text-accent-foreground px-8 py-3.5 rounded-full text-base font-medium hover:opacity-90 transition-opacity"
+      >
+        Book your free consultation
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12 px-6 border-t border-border">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-sm text-muted-foreground">
+        &copy; 2026 HermesOps. All rights reserved.
+      </div>
+      <div class="flex items-center gap-6 text-sm text-muted-foreground">
+        <a href="#services" class="hover:text-foreground transition-colors">Services</a>
+        <a href="#process" class="hover:text-foreground transition-colors">Process</a>
+        <a href="#results" class="hover:text-foreground transition-colors">Results</a>
+        <a href="#faq" class="hover:text-foreground transition-colors">FAQ</a>
+      </div>
+    </div>
+  </footer>
+
+</DefaultLayout>

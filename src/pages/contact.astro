@@ -1,0 +1,15 @@
+---
+import AspectContactForm from "@/components/sections/aspect-contact-form";
+import AspectContactHero from "@/components/sections/aspect-contact-hero";
+import AspectSeparator from "@/components/sections/aspect-separator";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+---
+
+<DefaultLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <AspectContactHero />
+  <AspectSeparator />
+  <AspectContactForm />
+  <AspectSeparator />
+</DefaultLayout>

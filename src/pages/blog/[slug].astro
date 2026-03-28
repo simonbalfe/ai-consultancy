@@ -1,0 +1,38 @@
+---
+import { getCollection, render } from "astro:content";
+
+import AspectBlogPost from "@/components/sections/aspect-blog-post";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: post,
+  }));
+}
+
+const post = Astro.props;
+const { title, published } = post.data;
+
+const tagline = post.data.tagline ?? "";
+const intro = post.data.intro ?? "";
+const author = post.data.author ?? "";
+const image = post.data.coverImage ?? "/images/blog/placeholder.webp"; // <— normalized
+
+const { Content } = await render(post);
+---
+
+<DefaultLayout title={title} description={intro}>
+  <AspectBlogPost
+    client:only="react"
+    tagline={tagline}
+    title={title}
+    intro={intro}
+    image={image}
+    author={author}
+    published={published.toISOString()}
+  >
+    <Content />
+  </AspectBlogPost>
+</DefaultLayout>

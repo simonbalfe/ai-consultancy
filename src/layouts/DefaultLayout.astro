@@ -1,0 +1,16 @@
+---
+import BaseHead from "@/components/BaseHead.astro";
+import QualifyingPopup from "@/components/sections/qualifying-popup";
+
+const { title, description } = Astro.props;
+---
+
+<html lang="en" class="dark">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body class="min-h-screen antialiased">
+    <main><slot /></main>
+    <QualifyingPopup client:only="react" />
+  </body>
+</html>
