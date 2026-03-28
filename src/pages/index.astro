@@ -154,8 +154,16 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
   </nav>
 
   <!-- HERO -->
-  <section class="pt-40 pb-24 px-6">
-    <div class="max-w-4xl mx-auto text-center hero-animate">
+  <section class="relative pt-40 pb-24 px-6 min-h-[90vh] flex items-center overflow-hidden">
+    <div class="absolute inset-0">
+      <img
+        src="/images/homepage/hero-dashboard.jpg"
+        alt=""
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background"></div>
+    </div>
+    <div class="relative max-w-4xl mx-auto text-center hero-animate">
       <h1 class="text-5xl md:text-7xl font-normal tracking-tight leading-[1.1] mb-6">
         AI systems that<br/>
         <span class="italic font-extralight text-muted-foreground">work while you sleep.</span>
