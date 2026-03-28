@@ -5,12 +5,136 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
 
 <DefaultLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
 
+  <style>
+    /* Scroll reveal base */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Slide from left */
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal-left.is-visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Slide from right */
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal-right.is-visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Scale up */
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal-scale.is-visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Stagger children delays */
+    .stagger > *:nth-child(1) { transition-delay: 0s; }
+    .stagger > *:nth-child(2) { transition-delay: 0.1s; }
+    .stagger > *:nth-child(3) { transition-delay: 0.15s; }
+    .stagger > *:nth-child(4) { transition-delay: 0.2s; }
+    .stagger > *:nth-child(5) { transition-delay: 0.25s; }
+    .stagger > *:nth-child(6) { transition-delay: 0.3s; }
+
+    /* Table row reveal */
+    .reveal-row {
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+    .reveal-row.is-visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* CTA glow pulse */
+    @keyframes glow-pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(var(--accent-rgb, 139 92 246), 0.3); }
+      50% { box-shadow: 0 0 40px rgba(var(--accent-rgb, 139 92 246), 0.5), 0 0 60px rgba(var(--accent-rgb, 139 92 246), 0.2); }
+    }
+    .cta-glow {
+      animation: glow-pulse 3s ease-in-out infinite;
+    }
+
+    /* Hero text fade-in stagger */
+    @keyframes hero-fade-up {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-animate > *:nth-child(1) { animation: hero-fade-up 0.8s ease-out 0.1s both; }
+    .hero-animate > *:nth-child(2) { animation: hero-fade-up 0.8s ease-out 0.3s both; }
+    .hero-animate > *:nth-child(3) { animation: hero-fade-up 0.8s ease-out 0.5s both; }
+
+    /* Progress bar fill */
+    .progress-fill {
+      width: 0;
+      transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .progress-fill.is-visible {
+      width: var(--fill-width);
+    }
+
+    /* Logo ticker */
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-track {
+      animation: ticker 30s linear infinite;
+    }
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .ticker-track { animation: none; }
+      .reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-row {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      .hero-animate > * {
+        animation: none !important;
+        opacity: 1;
+      }
+      .cta-glow { animation: none; }
+      .progress-fill { width: var(--fill-width); transition: none; }
+    }
+  </style>
+
   <!-- NAV -->
   <nav class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
     <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
       <a href="/" class="flex items-center gap-2">
         <img src="/images/layout/hermesops-icon.svg" alt="HermesOps" class="h-8 w-8 brightness-0 invert" />
-        <span class="text-xl font-bold tracking-tight text-foreground">HermesOps</span>
+        <span class="text-xl font-semibold tracking-tight text-foreground">HermesOps</span>
       </a>
       <div class="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
         <a href="#services" class="hover:text-foreground transition-colors">Services</a>
@@ -22,7 +146,7 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
         href={CALENDLY_URL}
         target="_blank"
         rel="noopener noreferrer"
-        class="bg-accent text-accent-foreground px-5 py-2 rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
+        class="bg-accent text-accent-foreground px-5 py-2 rounded-full text-sm font-normal hover:opacity-90 transition-opacity"
       >
         Book a call
       </a>
@@ -31,12 +155,12 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
 
   <!-- HERO -->
   <section class="pt-40 pb-24 px-6">
-    <div class="max-w-4xl mx-auto text-center">
-      <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
+    <div class="max-w-4xl mx-auto text-center hero-animate">
+      <h1 class="text-5xl md:text-7xl font-normal tracking-tight leading-[1.1] mb-6">
         AI systems that<br/>
-        <span class="italic font-normal text-muted-foreground">work while you sleep.</span>
+        <span class="italic font-extralight text-muted-foreground">work while you sleep.</span>
       </h1>
-      <p class="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
+      <p class="text-lg md:text-xl text-muted-foreground font-light max-w-2xl mx-auto mb-10">
         We build custom AI that automates your operations, saves your team hours every week, and scales with your business.
       </p>
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -44,7 +168,7 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
           href={CALENDLY_URL}
           target="_blank"
           rel="noopener noreferrer"
-          class="bg-accent text-accent-foreground px-8 py-3.5 rounded-full text-base font-medium hover:opacity-90 transition-opacity"
+          class="cta-glow bg-accent text-accent-foreground px-8 py-3.5 rounded-full text-base font-normal hover:opacity-90 transition-opacity"
         >
           Book your free consultation
         </a>
@@ -58,51 +182,98 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
     </div>
   </section>
 
+  <!-- TOOLS & INTEGRATIONS -->
+  <section class="py-16 px-6 border-t border-border overflow-hidden reveal">
+    <div class="max-w-6xl mx-auto">
+      <p class="text-center text-sm text-muted-foreground mb-8">Built with the tools your team already uses</p>
+      <div class="relative">
+        <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10"></div>
+        <div class="overflow-hidden">
+          <div class="ticker-track flex items-center gap-12 w-max">
+            <!-- First set -->
+            <img src="/images/logos/make.svg" alt="Make.com" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/n8n.svg" alt="n8n" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/zapier.svg" alt="Zapier" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/pipedrive.svg" alt="Pipedrive" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/hubspot.svg" alt="HubSpot" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/salesforce.svg" alt="Salesforce" class="h-8 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/slack.svg" alt="Slack" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/monday.svg" alt="Monday.com" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/notion.svg" alt="Notion" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/airtable.svg" alt="Airtable" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/openai.svg" alt="OpenAI" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/stripe.svg" alt="Stripe" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/twilio.svg" alt="Twilio" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/google-workspace.svg" alt="Google Workspace" class="h-8 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <!-- Duplicate set for seamless loop -->
+            <img src="/images/logos/make.svg" alt="Make.com" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/n8n.svg" alt="n8n" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/zapier.svg" alt="Zapier" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/pipedrive.svg" alt="Pipedrive" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/hubspot.svg" alt="HubSpot" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/salesforce.svg" alt="Salesforce" class="h-8 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/slack.svg" alt="Slack" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/monday.svg" alt="Monday.com" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/notion.svg" alt="Notion" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/airtable.svg" alt="Airtable" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/openai.svg" alt="OpenAI" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/stripe.svg" alt="Stripe" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/twilio.svg" alt="Twilio" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/google-workspace.svg" alt="Google Workspace" class="h-8 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- SERVICES -->
   <section id="services" class="py-24 px-6">
     <div class="max-w-6xl mx-auto">
-      <p class="text-accent text-sm font-medium tracking-wide uppercase mb-4">What we build</p>
-      <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-6">
-        Custom AI systems.<br/>
-        <span class="text-muted-foreground">Not templates.</span>
-      </h2>
-      <p class="text-muted-foreground text-lg max-w-2xl mb-16">
-        Every business is different. We diagnose your workflows, find the bottlenecks, and build systems tailored to how your team actually works.
-      </p>
+      <div class="reveal">
+        <p class="text-accent text-sm font-light tracking-widest uppercase mb-4">What we build</p>
+        <h2 class="text-3xl md:text-5xl font-normal tracking-tight mb-6">
+          Custom AI systems.<br/>
+          <span class="text-muted-foreground">Not templates.</span>
+        </h2>
+        <p class="text-muted-foreground text-lg max-w-2xl mb-16">
+          Every business is different. We diagnose your workflows, find the bottlenecks, and build systems tailored to how your team actually works.
+        </p>
+      </div>
 
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-card border border-border rounded-2xl p-8">
+      <div class="grid md:grid-cols-3 gap-6 stagger">
+        <div class="reveal bg-card border border-border rounded-2xl p-8 hover:border-accent/30 hover:-translate-y-1 transition-all duration-300">
           <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5">
             <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold mb-3">AI Assistants & Chatbots</h3>
-          <p class="text-muted-foreground leading-relaxed">
+          <h3 class="text-xl font-normal mb-3">AI Assistants & Chatbots</h3>
+          <p class="text-muted-foreground font-light leading-relaxed">
             Intelligent conversational systems that handle customer queries, qualify leads, and book meetings automatically.
           </p>
         </div>
 
-        <div class="bg-card border border-border rounded-2xl p-8">
+        <div class="reveal bg-card border border-border rounded-2xl p-8 hover:border-accent/30 hover:-translate-y-1 transition-all duration-300">
           <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5">
             <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold mb-3">Workflow Automation</h3>
-          <p class="text-muted-foreground leading-relaxed">
+          <h3 class="text-xl font-normal mb-3">Workflow Automation</h3>
+          <p class="text-muted-foreground font-light leading-relaxed">
             End-to-end automation of repetitive processes. CRM updates, data entry, reporting, outreach, and follow-ups on autopilot.
           </p>
         </div>
 
-        <div class="bg-card border border-border rounded-2xl p-8">
+        <div class="reveal bg-card border border-border rounded-2xl p-8 hover:border-accent/30 hover:-translate-y-1 transition-all duration-300">
           <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5">
             <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold mb-3">Data & Intelligence</h3>
-          <p class="text-muted-foreground leading-relaxed">
+          <h3 class="text-xl font-normal mb-3">Data & Intelligence</h3>
+          <p class="text-muted-foreground font-light leading-relaxed">
             AI-powered analytics, lead scoring, candidate matching, and document processing that turns raw data into decisions.
           </p>
         </div>
@@ -113,106 +284,112 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
   <!-- BEFORE / AFTER -->
   <section class="py-24 px-6 bg-card">
     <div class="max-w-6xl mx-auto">
-      <p class="text-accent text-sm font-medium tracking-wide uppercase mb-4">Before & After</p>
-      <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-        Where the hours go.
-      </h2>
-      <p class="text-muted-foreground text-lg max-w-2xl mb-12">
-        These are the workflows we automate first. The numbers are per person, per week.
-      </p>
+      <div class="reveal">
+        <p class="text-accent text-sm font-light tracking-widest uppercase mb-4">Before & After</p>
+        <h2 class="text-3xl md:text-5xl font-normal tracking-tight mb-4">
+          Where the hours go.
+        </h2>
+        <p class="text-muted-foreground text-lg max-w-2xl mb-12">
+          These are the workflows we automate first. The numbers are per person, per week.
+        </p>
+      </div>
 
       <div class="overflow-x-auto">
         <table class="w-full text-left">
           <thead>
             <tr class="border-b border-border text-sm text-muted-foreground">
-              <th class="py-4 pr-8 font-medium">Task</th>
-              <th class="py-4 pr-8 font-medium text-red-400">Before</th>
-              <th class="py-4 pr-8 font-medium text-emerald-400">After</th>
-              <th class="py-4 font-medium text-accent">Time saved</th>
+              <th class="py-4 pr-8 font-light">Task</th>
+              <th class="py-4 pr-8 font-light text-red-400">Before</th>
+              <th class="py-4 pr-8 font-light text-emerald-400">After</th>
+              <th class="py-4 font-light text-accent">Time saved</th>
             </tr>
           </thead>
-          <tbody class="text-base">
-            <tr class="border-b border-border">
+          <tbody class="text-base" id="table-body">
+            <tr class="border-b border-border reveal-row" style="transition-delay: 0s;">
               <td class="py-4 pr-8">CRM updates after meetings</td>
               <td class="py-4 pr-8 text-red-400">4h 00m</td>
               <td class="py-4 pr-8 text-emerald-400">0h 45m</td>
-              <td class="py-4 text-accent font-medium">3h 15m</td>
+              <td class="py-4 text-accent font-light">3h 15m</td>
             </tr>
-            <tr class="border-b border-border">
+            <tr class="border-b border-border reveal-row" style="transition-delay: 0.08s;">
               <td class="py-4 pr-8">Pre-meeting research & briefs</td>
               <td class="py-4 pr-8 text-red-400">2h 30m</td>
               <td class="py-4 pr-8 text-emerald-400">0h 20m</td>
-              <td class="py-4 text-accent font-medium">2h 10m</td>
+              <td class="py-4 text-accent font-light">2h 10m</td>
             </tr>
-            <tr class="border-b border-border">
+            <tr class="border-b border-border reveal-row" style="transition-delay: 0.16s;">
               <td class="py-4 pr-8">Lead enrichment & scoring</td>
               <td class="py-4 pr-8 text-red-400">2h 00m</td>
               <td class="py-4 pr-8 text-emerald-400">0h 15m</td>
-              <td class="py-4 text-accent font-medium">1h 45m</td>
+              <td class="py-4 text-accent font-light">1h 45m</td>
             </tr>
-            <tr class="border-b border-border">
+            <tr class="border-b border-border reveal-row" style="transition-delay: 0.24s;">
               <td class="py-4 pr-8">Outreach & follow-ups</td>
               <td class="py-4 pr-8 text-red-400">3h 00m</td>
               <td class="py-4 pr-8 text-emerald-400">0h 20m</td>
-              <td class="py-4 text-accent font-medium">2h 40m</td>
+              <td class="py-4 text-accent font-light">2h 40m</td>
             </tr>
-            <tr class="border-b border-border">
+            <tr class="border-b border-border reveal-row" style="transition-delay: 0.32s;">
               <td class="py-4 pr-8">Content creation & publishing</td>
               <td class="py-4 pr-8 text-red-400">3h 30m</td>
               <td class="py-4 pr-8 text-emerald-400">0h 30m</td>
-              <td class="py-4 text-accent font-medium">3h 00m</td>
+              <td class="py-4 text-accent font-light">3h 00m</td>
             </tr>
-            <tr>
+            <tr class="reveal-row" style="transition-delay: 0.4s;">
               <td class="py-4 pr-8">Data entry & reporting</td>
               <td class="py-4 pr-8 text-red-400">2h 30m</td>
               <td class="py-4 pr-8 text-emerald-400">0h 20m</td>
-              <td class="py-4 text-accent font-medium">2h 10m</td>
+              <td class="py-4 text-accent font-light">2h 10m</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <p class="text-muted-foreground text-sm mt-8 italic">
-        That is 15+ hours back per person, per week. Multiply by your team size.
-      </p>
+      <div class="reveal mt-8">
+        <p class="text-muted-foreground text-sm italic">
+          That is <span class="text-accent font-normal not-italic" data-count-to="15" data-suffix="+">0</span> hours back per person, per week. Multiply by your team size.
+        </p>
+      </div>
     </div>
   </section>
 
   <!-- PROCESS -->
   <section id="process" class="py-24 px-6">
     <div class="max-w-6xl mx-auto">
-      <p class="text-accent text-sm font-medium tracking-wide uppercase mb-4">How it works</p>
-      <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-16">
-        From call to deployed.<br/>
-        <span class="text-muted-foreground">In weeks, not months.</span>
-      </h2>
+      <div class="reveal">
+        <p class="text-accent text-sm font-light tracking-widest uppercase mb-4">How it works</p>
+        <h2 class="text-3xl md:text-5xl font-normal tracking-tight mb-16">
+          From call to deployed.<br/>
+          <span class="text-muted-foreground">In weeks, not months.</span>
+        </h2>
+      </div>
 
-      <div class="grid md:grid-cols-4 gap-8">
-        <div>
-          <div class="w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center text-sm font-bold mb-5">1</div>
-          <h3 class="text-lg font-semibold mb-2">Discovery</h3>
-          <p class="text-muted-foreground leading-relaxed">
+      <div class="grid md:grid-cols-4 gap-8 stagger">
+        <div class="reveal">
+          <div class="w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center text-sm font-normal mb-5">1</div>
+          <h3 class="text-lg font-normal mb-2">Discovery</h3>
+          <p class="text-muted-foreground font-light leading-relaxed">
             30-minute call. We map where your time goes and find the highest-impact bottlenecks.
           </p>
         </div>
-        <div>
-          <div class="w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center text-sm font-bold mb-5">2</div>
-          <h3 class="text-lg font-semibold mb-2">Design</h3>
-          <p class="text-muted-foreground leading-relaxed">
+        <div class="reveal">
+          <div class="w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center text-sm font-normal mb-5">2</div>
+          <h3 class="text-lg font-normal mb-2">Design</h3>
+          <p class="text-muted-foreground font-light leading-relaxed">
             We scope the system, define the integrations, and agree on exactly what gets built. No code until you approve.
           </p>
         </div>
-        <div>
-          <div class="w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center text-sm font-bold mb-5">3</div>
-          <h3 class="text-lg font-semibold mb-2">Build</h3>
-          <p class="text-muted-foreground leading-relaxed">
+        <div class="reveal">
+          <div class="w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center text-sm font-normal mb-5">3</div>
+          <h3 class="text-lg font-normal mb-2">Build</h3>
+          <p class="text-muted-foreground font-light leading-relaxed">
             We build, test, and iterate. You see progress weekly. First system live in 4 to 6 weeks.
           </p>
         </div>
-        <div>
-          <div class="w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center text-sm font-bold mb-5">4</div>
-          <h3 class="text-lg font-semibold mb-2">Deploy & Support</h3>
-          <p class="text-muted-foreground leading-relaxed">
+        <div class="reveal">
+          <div class="w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center text-sm font-normal mb-5">4</div>
+          <h3 class="text-lg font-normal mb-2">Deploy & Support</h3>
+          <p class="text-muted-foreground font-light leading-relaxed">
             Deployed into your stack. Monitored, maintained, and improved as your operations evolve.
           </p>
         </div>
@@ -223,97 +400,108 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
   <!-- RESULTS -->
   <section id="results" class="py-24 px-6 bg-card">
     <div class="max-w-6xl mx-auto">
-      <p class="text-accent text-sm font-medium tracking-wide uppercase mb-4">Results</p>
-      <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-16">
-        Real systems.<br/>
-        <span class="text-muted-foreground">Real hours recovered.</span>
-      </h2>
+      <div class="reveal">
+        <p class="text-accent text-sm font-light tracking-widest uppercase mb-4">Results</p>
+        <h2 class="text-3xl md:text-5xl font-normal tracking-tight mb-16">
+          Real systems.<br/>
+          <span class="text-muted-foreground">Real hours recovered.</span>
+        </h2>
+      </div>
 
-      <div class="grid md:grid-cols-3 gap-6 mb-16">
-        <div class="bg-background border border-border rounded-2xl p-8">
-          <div class="text-4xl font-bold text-accent mb-2">15+</div>
+      <div class="grid md:grid-cols-3 gap-6 mb-16 stagger" id="stats-grid">
+        <div class="reveal-scale bg-background border border-border rounded-2xl p-8">
+          <div class="text-4xl font-light text-accent mb-2" data-count-to="15" data-suffix="+">0</div>
           <div class="text-muted-foreground">hours saved per person, per week</div>
+          <div class="mt-4 h-1.5 bg-muted rounded-full overflow-hidden">
+            <div class="progress-fill h-full bg-accent rounded-full" style="--fill-width: 85%;"></div>
+          </div>
         </div>
-        <div class="bg-background border border-border rounded-2xl p-8">
-          <div class="text-4xl font-bold text-accent mb-2">4-6</div>
+        <div class="reveal-scale bg-background border border-border rounded-2xl p-8">
+          <div class="text-4xl font-light text-accent mb-2" data-count-to="4" data-count-end="6" data-separator="-">0</div>
           <div class="text-muted-foreground">weeks from call to live system</div>
+          <div class="mt-4 h-1.5 bg-muted rounded-full overflow-hidden">
+            <div class="progress-fill h-full bg-accent rounded-full" style="--fill-width: 60%;"></div>
+          </div>
         </div>
-        <div class="bg-background border border-border rounded-2xl p-8">
-          <div class="text-4xl font-bold text-accent mb-2">100%</div>
+        <div class="reveal-scale bg-background border border-border rounded-2xl p-8">
+          <div class="text-4xl font-light text-accent mb-2" data-count-to="100" data-suffix="%">0</div>
           <div class="text-muted-foreground">custom built for your workflows</div>
+          <div class="mt-4 h-1.5 bg-muted rounded-full overflow-hidden">
+            <div class="progress-fill h-full bg-accent rounded-full" style="--fill-width: 100%;"></div>
+          </div>
         </div>
       </div>
 
       <!-- Case study cards -->
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-background border border-border rounded-2xl p-8">
+      <div class="grid md:grid-cols-2 gap-6 stagger">
+        <div class="reveal bg-background border border-border rounded-2xl p-8 hover:border-accent/30 transition-colors duration-300">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">CS</div>
+            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-normal text-muted-foreground">CS</div>
             <div>
-              <div class="font-semibold">Logistics Company</div>
+              <div class="font-normal">Logistics Company</div>
               <div class="text-sm text-muted-foreground">Air Cargo & Freight</div>
             </div>
           </div>
           <p class="text-muted-foreground mb-4">
             Replaced an 8-step manual booking form with an AI system that gathers information conversationally, fetches live pricing, and completes bookings automatically.
           </p>
-          <div class="text-accent font-medium text-sm">8-step form replaced with instant AI booking</div>
+          <div class="text-accent font-light text-sm">8-step form replaced with instant AI booking</div>
         </div>
 
-        <div class="bg-background border border-border rounded-2xl p-8">
+        <div class="reveal bg-background border border-border rounded-2xl p-8 hover:border-accent/30 transition-colors duration-300">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">CS</div>
+            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-normal text-muted-foreground">CS</div>
             <div>
-              <div class="font-semibold">Recruiting Firm</div>
+              <div class="font-normal">Recruiting Firm</div>
               <div class="text-sm text-muted-foreground">Executive Search</div>
             </div>
           </div>
           <p class="text-muted-foreground mb-4">
             Built a targeted outreach system that contacted 259 event speakers automatically, handling connection requests, messaging, and follow-ups.
           </p>
-          <div class="text-accent font-medium text-sm">85.4% reply rate across 259 contacts</div>
+          <div class="text-accent font-light text-sm"><span data-count-to="85" data-suffix=".4%">0</span> reply rate across <span data-count-to="259">0</span> contacts</div>
         </div>
 
-        <div class="bg-background border border-border rounded-2xl p-8">
+        <div class="reveal bg-background border border-border rounded-2xl p-8 hover:border-accent/30 transition-colors duration-300">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">CS</div>
+            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-normal text-muted-foreground">CS</div>
             <div>
-              <div class="font-semibold">Marketing Agency</div>
+              <div class="font-normal">Marketing Agency</div>
               <div class="text-sm text-muted-foreground">Lead Generation</div>
             </div>
           </div>
           <p class="text-muted-foreground mb-4">
             Built an AI-driven lead generation system that identifies, contacts, and follows up with prospects automatically across multiple channels.
           </p>
-          <div class="text-accent font-medium text-sm">20+ hours/week of manual outreach eliminated</div>
+          <div class="text-accent font-light text-sm"><span data-count-to="20" data-suffix="+">0</span> hours/week of manual outreach eliminated</div>
         </div>
 
-        <div class="bg-background border border-border rounded-2xl p-8">
+        <div class="reveal bg-background border border-border rounded-2xl p-8 hover:border-accent/30 transition-colors duration-300">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">CS</div>
+            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-normal text-muted-foreground">CS</div>
             <div>
-              <div class="font-semibold">Staffing Company</div>
+              <div class="font-normal">Staffing Company</div>
               <div class="text-sm text-muted-foreground">Candidate Matching</div>
             </div>
           </div>
           <p class="text-muted-foreground mb-4">
             AI-powered candidate matching system that automatically screens and scores prospects, cutting manual screening time in half.
           </p>
-          <div class="text-accent font-medium text-sm">Screening time reduced by 50%</div>
+          <div class="text-accent font-light text-sm">Screening time reduced by <span data-count-to="50" data-suffix="%">0</span></div>
         </div>
 
-        <div class="bg-background border border-border rounded-2xl p-8 md:col-span-2">
+        <div class="reveal bg-background border border-border rounded-2xl p-8 md:col-span-2 hover:border-accent/30 transition-colors duration-300">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">CS</div>
+            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-normal text-muted-foreground">CS</div>
             <div>
-              <div class="font-semibold">Service Business</div>
+              <div class="font-normal">Service Business</div>
               <div class="text-sm text-muted-foreground">AI Voice Agent</div>
             </div>
           </div>
           <p class="text-muted-foreground mb-4">
             Built an AI voice agent that handles all inbound calls, qualifying leads and capturing enquiries automatically. Converted a &pound;1,200 lead while the owner was on holiday.
           </p>
-          <div class="text-accent font-medium text-sm">&pound;1,200 lead captured and converted with zero manual effort</div>
+          <div class="text-accent font-light text-sm">&pound;<span data-count-to="1200">0</span> lead captured and converted with zero manual effort</div>
         </div>
       </div>
     </div>
@@ -322,79 +510,81 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
   <!-- FAQ -->
   <section id="faq" class="py-24 px-6">
     <div class="max-w-3xl mx-auto">
-      <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-12">
-        Questions
-      </h2>
+      <div class="reveal">
+        <h2 class="text-3xl md:text-5xl font-normal tracking-tight mb-12">
+          Questions
+        </h2>
+      </div>
 
       <div class="divide-y divide-border">
-        <details class="group py-6">
-          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-medium">
+        <details class="group py-6 reveal" style="transition-delay: 0s;">
+          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-light">
             How does it start?
             <svg class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
           </summary>
-          <p class="mt-4 text-muted-foreground leading-relaxed">
+          <p class="mt-4 text-muted-foreground font-light leading-relaxed">
             Discovery call. We map where your time is going, find the biggest bottlenecks, and scope the systems with highest impact. No code until we have a clear plan.
           </p>
         </details>
 
-        <details class="group py-6">
-          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-medium">
+        <details class="group py-6 reveal" style="transition-delay: 0.06s;">
+          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-light">
             How fast do I see results?
             <svg class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
           </summary>
-          <p class="mt-4 text-muted-foreground leading-relaxed">
+          <p class="mt-4 text-muted-foreground font-light leading-relaxed">
             First system live in 4 to 6 weeks. Discovery takes 1 to 2 weeks. The time savings start from day one of deployment and compound from there.
           </p>
         </details>
 
-        <details class="group py-6">
-          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-medium">
+        <details class="group py-6 reveal" style="transition-delay: 0.12s;">
+          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-light">
             Who is this for?
             <svg class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
           </summary>
-          <p class="mt-4 text-muted-foreground leading-relaxed">
+          <p class="mt-4 text-muted-foreground font-light leading-relaxed">
             Founders, directors, and operators who know AI works and want it built properly. You would rather pay for excellent execution than cheap hours.
           </p>
         </details>
 
-        <details class="group py-6">
-          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-medium">
+        <details class="group py-6 reveal" style="transition-delay: 0.18s;">
+          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-light">
             Is this just another automation tool?
             <svg class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
           </summary>
-          <p class="mt-4 text-muted-foreground leading-relaxed">
+          <p class="mt-4 text-muted-foreground font-light leading-relaxed">
             No. We do not sell software. We are an execution partner. We diagnose, design, build, and deploy custom systems tailored to your operations. The result feels like it was always part of your company.
           </p>
         </details>
 
-        <details class="group py-6">
-          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-medium">
+        <details class="group py-6 reveal" style="transition-delay: 0.24s;">
+          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-light">
             What happens after deployment?
             <svg class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
           </summary>
-          <p class="mt-4 text-muted-foreground leading-relaxed">
+          <p class="mt-4 text-muted-foreground font-light leading-relaxed">
             We own it. Monitored, maintained, and improved. As your operations evolve, the systems adapt. The longer they run, the more time they save.
           </p>
         </details>
 
-        <details class="group py-6">
-          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-medium">
+        <details class="group py-6 reveal" style="transition-delay: 0.3s;">
+          <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-light">
             How is my data handled?
             <svg class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
           </summary>
-          <p class="mt-4 text-muted-foreground leading-relaxed">
+          <p class="mt-4 text-muted-foreground font-light leading-relaxed">
             Encrypted in transit and at rest. Your data is never used to train AI models. Zero data retention from providers.
           </p>
         </details>
@@ -404,8 +594,8 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
 
   <!-- CTA -->
   <section class="py-24 px-6 bg-card">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-6">
+    <div class="max-w-3xl mx-auto text-center reveal">
+      <h2 class="text-3xl md:text-5xl font-normal tracking-tight mb-6">
         Every day you wait is<br/>another day of lost time.
       </h2>
       <p class="text-lg text-muted-foreground mb-10">
@@ -415,7 +605,7 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
         href={CALENDLY_URL}
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-block bg-accent text-accent-foreground px-8 py-3.5 rounded-full text-base font-medium hover:opacity-90 transition-opacity"
+        class="cta-glow inline-block bg-accent text-accent-foreground px-8 py-3.5 rounded-full text-base font-normal hover:opacity-90 transition-opacity"
       >
         Book your free consultation
       </a>
@@ -436,5 +626,81 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
       </div>
     </div>
   </footer>
+
+  <script is:inline>
+    // Scroll reveal observer
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-row, .progress-fill').forEach(el => {
+      revealObserver.observe(el);
+    });
+
+    // Animated number counter
+    function animateCount(el) {
+      const target = parseInt(el.dataset.countTo, 10);
+      const suffix = el.dataset.suffix || '';
+      const end = el.dataset.countEnd ? parseInt(el.dataset.countEnd, 10) : null;
+      const separator = el.dataset.separator || '';
+      const duration = 2000;
+      const start = performance.now();
+
+      function easeOut(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+
+      function tick(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeOut(progress);
+        const current = Math.round(eased * target);
+
+        if (end) {
+          const currentEnd = Math.round(eased * end);
+          el.textContent = current + separator + currentEnd;
+        } else {
+          el.textContent = target >= 1000
+            ? current.toLocaleString() + suffix
+            : current + suffix;
+        }
+
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        }
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          countObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('[data-count-to]').forEach(el => {
+      countObserver.observe(el);
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
 
 </DefaultLayout>
