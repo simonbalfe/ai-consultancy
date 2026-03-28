@@ -29,27 +29,68 @@ const timelineOptions = [
   "Just exploring",
 ];
 
+const KIT_FORM_ID = "9249834";
+const KIT_API_KEY = "kit_a7dc8917631cd9a84324f5354237910e";
+
 async function submitQuiz(payload: Record<string, string>) {
-  // -------------------------------------------------------
-  // STUB: Replace with your actual endpoint.
-  // e.g. fetch("https://api.hermesops.com/quiz", { ... })
-  // -------------------------------------------------------
-  const ENDPOINT = null; // set your URL here
-
-  console.log("--- Quiz submission payload ---");
-  console.log(JSON.stringify(payload, null, 2));
-
-  if (ENDPOINT) {
-    const res = await fetch(ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) throw new Error(`Submit failed: ${res.status}`);
-    return res.json();
+  if (!KIT_FORM_ID || !KIT_API_KEY) {
+    console.warn("Kit not configured. Set PUBLIC_KIT_FORM_ID and PUBLIC_KIT_API_KEY.");
+    return { ok: true };
   }
 
-  return { ok: true };
+  const headers = {
+    "Content-Type": "application/json",
+    "X-Kit-Api-Key": KIT_API_KEY,
+  };
+
+  const note = [
+    payload.company && `Company: ${payload.company}`,
+    `Team: ${payload.teamSize}`,
+    `Challenge: ${payload.challenge}`,
+    `Budget: ${payload.budget}`,
+    `Timeline: ${payload.timeline}`,
+  ]
+    .filter(Boolean)
+    .join(" | ");
+
+  // Step 1: Create (or upsert) the subscriber
+  const createRes = await fetch("https://api.kit.com/v4/subscribers", {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      email_address: payload.email,
+      first_name: payload.name,
+      fields: {
+        Company: payload.company || "",
+        "How did you hear about us?": note,
+      },
+    }),
+  });
+
+  if (!createRes.ok) {
+    const body = await createRes.text();
+    throw new Error(`Kit create subscriber failed (${createRes.status}): ${body}`);
+  }
+
+  // Step 2: Add subscriber to the form
+  const formRes = await fetch(
+    `https://api.kit.com/v4/forms/${KIT_FORM_ID}/subscribers`,
+    {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        email_address: payload.email,
+        referrer: window.location.href,
+      }),
+    }
+  );
+
+  if (!formRes.ok) {
+    const body = await formRes.text();
+    throw new Error(`Kit form subscribe failed (${formRes.status}): ${body}`);
+  }
+
+  return formRes.json();
 }
 
 export default function Quiz() {

@@ -15,8 +15,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, description, image } = Astro.props;
 const finalTitle = title || SITE_METADATA.title.default;
 const finalDescription = description || SITE_METADATA.description;
-const finalImage = image || SITE_METADATA.openGraph.images[0].url;
-const imageURL = new URL(finalImage, Astro.url);
 ---
 
 <meta charset="utf-8" />
@@ -38,14 +36,4 @@ const imageURL = new URL(finalImage, Astro.url);
 <meta name="title" content={finalTitle} />
 <meta name="description" content={finalDescription} />
 
-<meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
-<meta property="og:site_name" content={SITE_METADATA.openGraph.siteName} />
-<meta property="og:title" content={finalTitle} />
-<meta property="og:description" content={finalDescription} />
-<meta property="og:image" content={imageURL} />
-
-<meta property="twitter:card" content={SITE_METADATA.twitter.card} />
-<meta property="twitter:title" content={finalTitle} />
-<meta property="twitter:description" content={finalDescription} />
-<meta property="twitter:image" content={imageURL} />
+<!-- TODO: Add real OG image and Twitter card meta tags -->
