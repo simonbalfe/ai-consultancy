@@ -29,48 +29,19 @@ const timelineOptions = [
   "Just exploring",
 ];
 
-const BREVO_API_KEY = import.meta.env.PUBLIC_BREVO_API_KEY || "";
-const BREVO_LIST_ID = 9;
-
 async function submitQuiz(payload: Record<string, string>) {
-  if (!BREVO_API_KEY || !BREVO_LIST_ID) {
-    console.warn("Brevo not configured. Set PUBLIC_BREVO_API_KEY and PUBLIC_BREVO_LIST_ID.");
-    return { ok: true };
-  }
-
-  const headers = {
-    "Content-Type": "application/json",
-    "api-key": BREVO_API_KEY,
-  };
-
-  const [firstName, ...lastParts] = (payload.name || "").trim().split(" ");
-  const lastName = lastParts.join(" ");
-
-  const res = await fetch("https://api.brevo.com/v3/contacts", {
+  const res = await fetch("/api/subscribe", {
     method: "POST",
-    headers,
-    body: JSON.stringify({
-      email: payload.email,
-      listIds: [BREVO_LIST_ID],
-      attributes: {
-        FIRSTNAME: firstName,
-        LASTNAME: lastName,
-        COMPANY: payload.company || "",
-        TEAM_SIZE: payload.teamSize,
-        CHALLENGE: payload.challenge,
-        BUDGET: payload.budget,
-        TIMELINE: payload.timeline,
-      },
-      updateEnabled: true,
-    }),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
   });
 
   if (!res.ok) {
     const body = await res.text();
-    throw new Error(`Brevo subscribe failed (${res.status}): ${body}`);
+    throw new Error(`Subscribe failed (${res.status}): ${body}`);
   }
 
-  return res.status === 204 ? { ok: true } : res.json();
+  return res.json();
 }
 
 export default function Quiz() {
