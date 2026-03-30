@@ -130,13 +130,13 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
   </style>
 
   <!-- NAV -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+  <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] md:w-auto">
+    <div class="flex items-center justify-between md:justify-start gap-6 px-5 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
       <a href="/" class="flex items-center gap-2">
-        <img src="/images/layout/hermesops-icon.svg" alt="HermesOps" class="h-8 w-8 brightness-0 invert" />
-        <span class="text-xl font-semibold tracking-tight text-foreground">HermesOps</span>
+        <img src="/images/layout/hermesops-icon.svg" alt="HermesOps" class="h-7 w-7 brightness-0 invert" />
+        <span class="text-lg font-semibold tracking-tight text-foreground">HermesOps</span>
       </a>
-      <div class="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
+      <div class="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
         <a href="#services" class="hover:text-foreground transition-colors">Services</a>
         <a href="#process" class="hover:text-foreground transition-colors">Process</a>
         <a href="#results" class="hover:text-foreground transition-colors">Results</a>
@@ -146,7 +146,27 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
         href={CALENDLY_URL}
         target="_blank"
         rel="noopener noreferrer"
-        class="bg-accent text-accent-foreground px-5 py-2 rounded-full text-sm font-normal hover:opacity-90 transition-opacity"
+        class="hidden md:inline-block bg-accent text-accent-foreground px-5 py-2 rounded-full text-sm font-normal hover:opacity-90 transition-opacity"
+      >
+        Book a call
+      </a>
+      <button id="mobile-menu-btn" class="md:hidden text-foreground" aria-label="Menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden mt-2 rounded-2xl border border-white/10 bg-background/95 backdrop-blur-md p-6 flex flex-col gap-4">
+      <a href="#services" class="text-foreground text-base">Services</a>
+      <a href="#process" class="text-foreground text-base">Process</a>
+      <a href="#results" class="text-foreground text-base">Results</a>
+      <a href="#faq" class="text-foreground text-base">FAQ</a>
+      <a
+        href={CALENDLY_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="bg-accent text-accent-foreground px-5 py-3 rounded-full text-sm font-normal text-center hover:opacity-90 transition-opacity"
       >
         Book a call
       </a>
@@ -192,7 +212,7 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
 
   <!-- TOOLS & INTEGRATIONS -->
   <section class="py-16 px-6 border-t border-border overflow-hidden reveal">
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-7xl mx-auto">
       <p class="text-center text-sm text-muted-foreground mb-8">Built with the tools your team already uses</p>
       <div class="relative">
         <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10"></div>
@@ -200,35 +220,35 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
         <div class="overflow-hidden">
           <div class="ticker-track flex items-center gap-12 w-max">
             <!-- First set -->
-            <img src="/images/logos/make.svg" alt="Make.com" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/n8n.svg" alt="n8n" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/zapier.svg" alt="Zapier" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/pipedrive.svg" alt="Pipedrive" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/hubspot.svg" alt="HubSpot" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/salesforce.svg" alt="Salesforce" class="h-8 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/slack.svg" alt="Slack" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/monday.svg" alt="Monday.com" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/notion.svg" alt="Notion" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/airtable.svg" alt="Airtable" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/openai.svg" alt="OpenAI" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/stripe.svg" alt="Stripe" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/twilio.svg" alt="Twilio" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/google-workspace.svg" alt="Google Workspace" class="h-8 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/make.svg" alt="Make.com" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/n8n.svg" alt="n8n" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/zapier.svg" alt="Zapier" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/pipedrive.svg" alt="Pipedrive" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/hubspot.svg" alt="HubSpot" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/salesforce.svg" alt="Salesforce" class="h-8 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/slack.svg" alt="Slack" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/monday.svg" alt="Monday.com" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/notion.svg" alt="Notion" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/airtable.svg" alt="Airtable" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/openai.svg" alt="OpenAI" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/stripe.svg" alt="Stripe" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/twilio.svg" alt="Twilio" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/google-workspace.svg" alt="Google Workspace" class="h-8 opacity-70 hover:opacity-100 transition-opacity" />
             <!-- Duplicate set for seamless loop -->
-            <img src="/images/logos/make.svg" alt="Make.com" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/n8n.svg" alt="n8n" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/zapier.svg" alt="Zapier" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/pipedrive.svg" alt="Pipedrive" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/hubspot.svg" alt="HubSpot" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/salesforce.svg" alt="Salesforce" class="h-8 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/slack.svg" alt="Slack" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/monday.svg" alt="Monday.com" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/notion.svg" alt="Notion" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/airtable.svg" alt="Airtable" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/openai.svg" alt="OpenAI" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/stripe.svg" alt="Stripe" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/twilio.svg" alt="Twilio" class="h-7 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
-            <img src="/images/logos/google-workspace.svg" alt="Google Workspace" class="h-8 opacity-50 hover:opacity-80 transition-opacity brightness-0 invert" />
+            <img src="/images/logos/make.svg" alt="Make.com" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/n8n.svg" alt="n8n" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/zapier.svg" alt="Zapier" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/pipedrive.svg" alt="Pipedrive" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/hubspot.svg" alt="HubSpot" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/salesforce.svg" alt="Salesforce" class="h-8 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/slack.svg" alt="Slack" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/monday.svg" alt="Monday.com" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/notion.svg" alt="Notion" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/airtable.svg" alt="Airtable" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/openai.svg" alt="OpenAI" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/stripe.svg" alt="Stripe" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/twilio.svg" alt="Twilio" class="h-7 opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/images/logos/google-workspace.svg" alt="Google Workspace" class="h-8 opacity-70 hover:opacity-100 transition-opacity" />
           </div>
         </div>
       </div>
@@ -237,7 +257,7 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
 
   <!-- SERVICES -->
   <section id="services" class="py-24 px-6">
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-7xl mx-auto">
       <div class="reveal">
         <p class="text-accent text-sm font-light tracking-widest uppercase mb-4">What we build</p>
         <h2 class="text-3xl md:text-5xl font-normal tracking-tight mb-6">
@@ -291,7 +311,7 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
 
   <!-- BEFORE / AFTER -->
   <section class="py-24 px-6 bg-card">
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-7xl mx-auto">
       <div class="reveal">
         <p class="text-accent text-sm font-light tracking-widest uppercase mb-4">Before & After</p>
         <h2 class="text-3xl md:text-5xl font-normal tracking-tight mb-4">
@@ -363,7 +383,7 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
 
   <!-- PROCESS -->
   <section id="process" class="py-24 px-6">
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-7xl mx-auto">
       <div class="reveal">
         <p class="text-accent text-sm font-light tracking-widest uppercase mb-4">How it works</p>
         <h2 class="text-3xl md:text-5xl font-normal tracking-tight mb-16">
@@ -407,7 +427,7 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
 
   <!-- RESULTS -->
   <section id="results" class="py-24 px-6 bg-card">
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-7xl mx-auto">
       <div class="reveal">
         <p class="text-accent text-sm font-light tracking-widest uppercase mb-4">Results</p>
         <h2 class="text-3xl md:text-5xl font-normal tracking-tight mb-16">
@@ -440,76 +460,99 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
         </div>
       </div>
 
-      <!-- Case study cards -->
-      <div class="grid md:grid-cols-2 gap-6 stagger">
-        <div class="reveal bg-background border border-border rounded-2xl p-8 hover:border-accent/30 transition-colors duration-300">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-normal text-muted-foreground">CS</div>
-            <div>
-              <div class="font-normal">Logistics Company</div>
-              <div class="text-sm text-muted-foreground">Air Cargo & Freight</div>
+      <!-- Case study carousel -->
+      <div class="relative" id="case-carousel">
+        <div class="overflow-hidden rounded-2xl">
+          <div class="flex transition-transform duration-700 ease-in-out" id="carousel-track">
+            <div class="w-full flex-shrink-0 bg-background border border-border rounded-2xl p-10 md:p-14">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-sm font-normal text-muted-foreground">01</div>
+                <div>
+                  <div class="text-xl font-normal">Logistics Company</div>
+                  <div class="text-sm text-muted-foreground">Air Cargo & Freight</div>
+                </div>
+              </div>
+              <p class="text-muted-foreground text-lg font-light leading-relaxed mb-6 max-w-3xl">
+                Replaced an 8-step manual booking form with an AI system that gathers information conversationally, fetches live pricing, and completes bookings automatically.
+              </p>
+              <div class="text-accent text-lg font-light">8-step form replaced with instant AI booking</div>
+            </div>
+
+            <div class="w-full flex-shrink-0 bg-background border border-border rounded-2xl p-10 md:p-14">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-sm font-normal text-muted-foreground">02</div>
+                <div>
+                  <div class="text-xl font-normal">Recruiting Firm</div>
+                  <div class="text-sm text-muted-foreground">Executive Search</div>
+                </div>
+              </div>
+              <p class="text-muted-foreground text-lg font-light leading-relaxed mb-6 max-w-3xl">
+                Built a targeted outreach system that contacted 259 event speakers automatically, handling connection requests, messaging, and follow-ups.
+              </p>
+              <div class="text-accent text-lg font-light">85.4% reply rate across 259 contacts</div>
+            </div>
+
+            <div class="w-full flex-shrink-0 bg-background border border-border rounded-2xl p-10 md:p-14">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-sm font-normal text-muted-foreground">03</div>
+                <div>
+                  <div class="text-xl font-normal">Marketing Agency</div>
+                  <div class="text-sm text-muted-foreground">Lead Generation</div>
+                </div>
+              </div>
+              <p class="text-muted-foreground text-lg font-light leading-relaxed mb-6 max-w-3xl">
+                Built an AI-driven lead generation system that identifies, contacts, and follows up with prospects automatically across multiple channels.
+              </p>
+              <div class="text-accent text-lg font-light">20+ hours/week of manual outreach eliminated</div>
+            </div>
+
+            <div class="w-full flex-shrink-0 bg-background border border-border rounded-2xl p-10 md:p-14">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-sm font-normal text-muted-foreground">04</div>
+                <div>
+                  <div class="text-xl font-normal">Staffing Company</div>
+                  <div class="text-sm text-muted-foreground">Candidate Matching</div>
+                </div>
+              </div>
+              <p class="text-muted-foreground text-lg font-light leading-relaxed mb-6 max-w-3xl">
+                AI-powered candidate matching system that automatically screens and scores prospects, cutting manual screening time in half.
+              </p>
+              <div class="text-accent text-lg font-light">Screening time reduced by 50%</div>
+            </div>
+
+            <div class="w-full flex-shrink-0 bg-background border border-border rounded-2xl p-10 md:p-14">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-sm font-normal text-muted-foreground">05</div>
+                <div>
+                  <div class="text-xl font-normal">Service Business</div>
+                  <div class="text-sm text-muted-foreground">AI Voice Agent</div>
+                </div>
+              </div>
+              <p class="text-muted-foreground text-lg font-light leading-relaxed mb-6 max-w-3xl">
+                Built an AI voice agent that handles all inbound calls, qualifying leads and capturing enquiries automatically. Converted a &pound;1,200 lead while the owner was on holiday.
+              </p>
+              <div class="text-accent text-lg font-light">&pound;1,200 lead captured and converted with zero manual effort</div>
             </div>
           </div>
-          <p class="text-muted-foreground mb-4">
-            Replaced an 8-step manual booking form with an AI system that gathers information conversationally, fetches live pricing, and completes bookings automatically.
-          </p>
-          <div class="text-accent font-light text-sm">8-step form replaced with instant AI booking</div>
         </div>
 
-        <div class="reveal bg-background border border-border rounded-2xl p-8 hover:border-accent/30 transition-colors duration-300">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-normal text-muted-foreground">CS</div>
-            <div>
-              <div class="font-normal">Recruiting Firm</div>
-              <div class="text-sm text-muted-foreground">Executive Search</div>
-            </div>
+        <!-- Carousel controls -->
+        <div class="flex items-center justify-between mt-8">
+          <div class="flex gap-2" id="carousel-dots">
+            <button class="w-8 h-1.5 rounded-full bg-accent transition-all" data-dot="0"></button>
+            <button class="w-8 h-1.5 rounded-full bg-muted transition-all" data-dot="1"></button>
+            <button class="w-8 h-1.5 rounded-full bg-muted transition-all" data-dot="2"></button>
+            <button class="w-8 h-1.5 rounded-full bg-muted transition-all" data-dot="3"></button>
+            <button class="w-8 h-1.5 rounded-full bg-muted transition-all" data-dot="4"></button>
           </div>
-          <p class="text-muted-foreground mb-4">
-            Built a targeted outreach system that contacted 259 event speakers automatically, handling connection requests, messaging, and follow-ups.
-          </p>
-          <div class="text-accent font-light text-sm"><span data-count-to="85" data-suffix=".4%">0</span> reply rate across <span data-count-to="259">0</span> contacts</div>
-        </div>
-
-        <div class="reveal bg-background border border-border rounded-2xl p-8 hover:border-accent/30 transition-colors duration-300">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-normal text-muted-foreground">CS</div>
-            <div>
-              <div class="font-normal">Marketing Agency</div>
-              <div class="text-sm text-muted-foreground">Lead Generation</div>
-            </div>
+          <div class="flex gap-2">
+            <button id="carousel-prev" class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-accent/30 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <button id="carousel-next" class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-accent/30 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+            </button>
           </div>
-          <p class="text-muted-foreground mb-4">
-            Built an AI-driven lead generation system that identifies, contacts, and follows up with prospects automatically across multiple channels.
-          </p>
-          <div class="text-accent font-light text-sm"><span data-count-to="20" data-suffix="+">0</span> hours/week of manual outreach eliminated</div>
-        </div>
-
-        <div class="reveal bg-background border border-border rounded-2xl p-8 hover:border-accent/30 transition-colors duration-300">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-normal text-muted-foreground">CS</div>
-            <div>
-              <div class="font-normal">Staffing Company</div>
-              <div class="text-sm text-muted-foreground">Candidate Matching</div>
-            </div>
-          </div>
-          <p class="text-muted-foreground mb-4">
-            AI-powered candidate matching system that automatically screens and scores prospects, cutting manual screening time in half.
-          </p>
-          <div class="text-accent font-light text-sm">Screening time reduced by <span data-count-to="50" data-suffix="%">0</span></div>
-        </div>
-
-        <div class="reveal bg-background border border-border rounded-2xl p-8 md:col-span-2 hover:border-accent/30 transition-colors duration-300">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xs font-normal text-muted-foreground">CS</div>
-            <div>
-              <div class="font-normal">Service Business</div>
-              <div class="text-sm text-muted-foreground">AI Voice Agent</div>
-            </div>
-          </div>
-          <p class="text-muted-foreground mb-4">
-            Built an AI voice agent that handles all inbound calls, qualifying leads and capturing enquiries automatically. Converted a &pound;1,200 lead while the owner was on holiday.
-          </p>
-          <div class="text-accent font-light text-sm">&pound;<span data-count-to="1200">0</span> lead captured and converted with zero manual effort</div>
         </div>
       </div>
     </div>
@@ -517,7 +560,7 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
 
   <!-- FAQ -->
   <section id="faq" class="py-24 px-6">
-    <div class="max-w-3xl mx-auto">
+    <div class="max-w-5xl mx-auto">
       <div class="reveal">
         <h2 class="text-3xl md:text-5xl font-normal tracking-tight mb-12">
           Questions
@@ -602,7 +645,7 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
 
   <!-- CTA -->
   <section class="py-24 px-6 bg-card">
-    <div class="max-w-3xl mx-auto text-center reveal">
+    <div class="max-w-5xl mx-auto text-center reveal">
       <h2 class="text-3xl md:text-5xl font-normal tracking-tight mb-6">
         Every day you wait is<br/>another day of lost time.
       </h2>
@@ -622,7 +665,7 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
 
   <!-- FOOTER -->
   <footer class="py-12 px-6 border-t border-border">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
       <div class="text-sm text-muted-foreground">
         &copy; 2026 HermesOps. All rights reserved.
       </div>
@@ -697,6 +740,48 @@ import { SITE_DESCRIPTION, SITE_TITLE, CALENDLY_URL } from "../consts";
 
     document.querySelectorAll('[data-count-to]').forEach(el => {
       countObserver.observe(el);
+    });
+
+    // Carousel
+    (() => {
+      const track = document.getElementById('carousel-track');
+      const dots = document.querySelectorAll('#carousel-dots button');
+      const prev = document.getElementById('carousel-prev');
+      const next = document.getElementById('carousel-next');
+      const total = dots.length;
+      let current = 0;
+      let timer;
+
+      function goTo(i) {
+        current = ((i % total) + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, idx) => {
+          d.className = idx === current
+            ? 'w-8 h-1.5 rounded-full bg-accent transition-all'
+            : 'w-8 h-1.5 rounded-full bg-muted transition-all';
+        });
+        resetTimer();
+      }
+
+      function resetTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => goTo(current + 1), 5000);
+      }
+
+      prev.addEventListener('click', () => goTo(current - 1));
+      next.addEventListener('click', () => goTo(current + 1));
+      dots.forEach(d => d.addEventListener('click', () => goTo(parseInt(d.dataset.dot))));
+      resetTimer();
+    })();
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => mobileMenu.classList.add('hidden'));
     });
 
     // Smooth scroll for anchor links
