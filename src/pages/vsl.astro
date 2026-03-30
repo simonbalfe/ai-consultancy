@@ -594,9 +594,13 @@ import { CALENDLY_URL } from "../consts";
     <!-- Bottom padding for mobile sticky CTA -->
     <div class="h-16 md:hidden"></div>
 
-    <script is:inline>
-      const KIT_FORM_ID = "9249834";
-      const KIT_API_KEY = "kit_a7dc8917631cd9a84324f5354237910e";
+    <script is:inline
+      data-brevo-key={import.meta.env.PUBLIC_BREVO_API_KEY}
+      data-brevo-list={import.meta.env.PUBLIC_BREVO_LIST_ID}
+    >
+      const scriptEl = document.currentScript;
+      const BREVO_API_KEY = scriptEl.getAttribute('data-brevo-key') || '';
+      const BREVO_LIST_ID = Number(scriptEl.getAttribute('data-brevo-list')) || 0;
 
       document.querySelectorAll('#email-form-1, #email-form-2').forEach(form => {
         form.addEventListener('submit', async function(e) {
@@ -607,29 +611,26 @@ import { CALENDLY_URL } from "../consts";
           btn.textContent = 'Sending...';
 
           try {
-            const headers = {
-              "Content-Type": "application/json",
-              "X-Kit-Api-Key": KIT_API_KEY,
-            };
-
-            await fetch("https://api.kit.com/v4/subscribers", {
+            const res = await fetch("https://api.brevo.com/v3/contacts", {
               method: "POST",
-              headers,
-              body: JSON.stringify({ email_address: email }),
-            });
-
-            await fetch(`https://api.kit.com/v4/forms/${KIT_FORM_ID}/subscribers`, {
-              method: "POST",
-              headers,
+              headers: {
+                "Content-Type": "application/json",
+                "api-key": BREVO_API_KEY,
+              },
               body: JSON.stringify({
-                email_address: email,
-                referrer: window.location.href,
+                email: email,
+                listIds: [BREVO_LIST_ID],
+                updateEnabled: true,
               }),
             });
 
+            if (!res.ok && res.status !== 204) {
+              throw new Error('Brevo subscribe failed');
+            }
+
             this.innerHTML = '<div class="text-emerald-400 font-semibold py-3">Check your inbox! Your playbook is on its way.</div>';
           } catch (err) {
-            console.error('Kit subscription failed:', err);
+            console.error('Brevo subscription failed:', err);
             btn.disabled = false;
             btn.textContent = 'Get the Playbook';
           }

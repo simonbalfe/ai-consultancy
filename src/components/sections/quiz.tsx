@@ -29,68 +29,48 @@ const timelineOptions = [
   "Just exploring",
 ];
 
-const KIT_FORM_ID = "9249834";
-const KIT_API_KEY = "kit_a7dc8917631cd9a84324f5354237910e";
+const BREVO_API_KEY = import.meta.env.PUBLIC_BREVO_API_KEY || "";
+const BREVO_LIST_ID = Number(import.meta.env.PUBLIC_BREVO_LIST_ID) || 0;
 
 async function submitQuiz(payload: Record<string, string>) {
-  if (!KIT_FORM_ID || !KIT_API_KEY) {
-    console.warn("Kit not configured. Set PUBLIC_KIT_FORM_ID and PUBLIC_KIT_API_KEY.");
+  if (!BREVO_API_KEY || !BREVO_LIST_ID) {
+    console.warn("Brevo not configured. Set PUBLIC_BREVO_API_KEY and PUBLIC_BREVO_LIST_ID.");
     return { ok: true };
   }
 
   const headers = {
     "Content-Type": "application/json",
-    "X-Kit-Api-Key": KIT_API_KEY,
+    "api-key": BREVO_API_KEY,
   };
 
-  const note = [
-    payload.company && `Company: ${payload.company}`,
-    `Team: ${payload.teamSize}`,
-    `Challenge: ${payload.challenge}`,
-    `Budget: ${payload.budget}`,
-    `Timeline: ${payload.timeline}`,
-  ]
-    .filter(Boolean)
-    .join(" | ");
+  const [firstName, ...lastParts] = (payload.name || "").trim().split(" ");
+  const lastName = lastParts.join(" ");
 
-  // Step 1: Create (or upsert) the subscriber
-  const createRes = await fetch("https://api.kit.com/v4/subscribers", {
+  const res = await fetch("https://api.brevo.com/v3/contacts", {
     method: "POST",
     headers,
     body: JSON.stringify({
-      email_address: payload.email,
-      first_name: payload.name,
-      fields: {
-        Company: payload.company || "",
-        "How did you hear about us?": note,
+      email: payload.email,
+      listIds: [BREVO_LIST_ID],
+      attributes: {
+        FIRSTNAME: firstName,
+        LASTNAME: lastName,
+        COMPANY: payload.company || "",
+        TEAM_SIZE: payload.teamSize,
+        CHALLENGE: payload.challenge,
+        BUDGET: payload.budget,
+        TIMELINE: payload.timeline,
       },
+      updateEnabled: true,
     }),
   });
 
-  if (!createRes.ok) {
-    const body = await createRes.text();
-    throw new Error(`Kit create subscriber failed (${createRes.status}): ${body}`);
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`Brevo subscribe failed (${res.status}): ${body}`);
   }
 
-  // Step 2: Add subscriber to the form
-  const formRes = await fetch(
-    `https://api.kit.com/v4/forms/${KIT_FORM_ID}/subscribers`,
-    {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        email_address: payload.email,
-        referrer: window.location.href,
-      }),
-    }
-  );
-
-  if (!formRes.ok) {
-    const body = await formRes.text();
-    throw new Error(`Kit form subscribe failed (${formRes.status}): ${body}`);
-  }
-
-  return formRes.json();
+  return res.status === 204 ? { ok: true } : res.json();
 }
 
 export default function Quiz() {
