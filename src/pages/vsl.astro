@@ -596,11 +596,11 @@ import { CALENDLY_URL } from "../consts";
 
     <script is:inline
       data-brevo-key={import.meta.env.PUBLIC_BREVO_API_KEY}
-      data-brevo-list={import.meta.env.PUBLIC_BREVO_LIST_ID}
+      data-brevo-list="9"
     >
       const scriptEl = document.currentScript;
       const BREVO_API_KEY = scriptEl.getAttribute('data-brevo-key') || '';
-      const BREVO_LIST_ID = Number(scriptEl.getAttribute('data-brevo-list')) || 0;
+      const BREVO_LIST_ID = 9;
 
       document.querySelectorAll('#email-form-1, #email-form-2').forEach(form => {
         form.addEventListener('submit', async function(e) {

@@ -30,7 +30,7 @@ const timelineOptions = [
 ];
 
 const BREVO_API_KEY = import.meta.env.PUBLIC_BREVO_API_KEY || "";
-const BREVO_LIST_ID = Number(import.meta.env.PUBLIC_BREVO_LIST_ID) || 0;
+const BREVO_LIST_ID = 9;
 
 async function submitQuiz(payload: Record<string, string>) {
   if (!BREVO_API_KEY || !BREVO_LIST_ID) {
