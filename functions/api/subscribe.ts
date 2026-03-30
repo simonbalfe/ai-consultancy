@@ -32,6 +32,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   if (challenge) attributes.CHALLENGE = challenge;
   if (budget) attributes.BUDGET = budget;
   if (timeline) attributes.TIMELINE = timeline;
+  attributes.SOURCE = "quiz";
 
   const res = await fetch("https://api.brevo.com/v3/contacts", {
     method: "POST",
