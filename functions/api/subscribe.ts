@@ -1,9 +1,9 @@
-import type { APIRoute } from "astro";
+interface Env {
+  BREVO_API_KEY: string;
+}
 
-export const prerender = false;
-
-export const POST: APIRoute = async ({ request }) => {
-  const BREVO_API_KEY = import.meta.env.BREVO_API_KEY;
+export const onRequestPost: PagesFunction<Env> = async (context) => {
+  const { BREVO_API_KEY } = context.env;
   if (!BREVO_API_KEY) {
     return new Response(JSON.stringify({ error: "Brevo not configured" }), {
       status: 500,
@@ -11,7 +11,7 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  const body = await request.json();
+  const body = await context.request.json() as Record<string, string>;
   const { email, name, company, teamSize, challenge, budget, timeline } = body;
 
   if (!email) {
